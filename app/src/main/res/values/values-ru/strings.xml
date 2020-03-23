@@ -13,7 +13,4 @@
     <string name="invalid_password">Пароль должен быть длиннее 5 символов</string>
     <string name="login_failed">"Не удалось войти"</string>
     <string name="toPayment">Новая запись</string>
-    <string name="toPaymentIntro">Добро пожаловать в новую запись</string>
-    <string name="addPayment">Добавить</string>
-    <string name="Price">Price</string>
 </resources>

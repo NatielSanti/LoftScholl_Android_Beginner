@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="txtChargeText" type="id">Name</item>
-    <item name="txtChargeValue" type="id">Value</item>
-</resources>

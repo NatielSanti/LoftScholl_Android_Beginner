@@ -12,9 +12,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="toPayment">New Note</string>
-    <string name="toPaymentIntro">Welcome to new payment</string>
+    <string name="toPaymentIntro">New Payment</string>
     <string name="addPayment">Add</string>
-    <string name="Price">Price</string>
-    <string name="Name">Name</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="price">Price</string>
+    <string name="name">Name</string>
 </resources>

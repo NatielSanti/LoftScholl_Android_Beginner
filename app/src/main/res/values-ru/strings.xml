@@ -15,5 +15,6 @@
     <string name="toPayment">Новая запись</string>
     <string name="toPaymentIntro">Добро пожаловать в новую запись</string>
     <string name="addPayment">Добавить</string>
-    <string name="Price">Price</string>
+    <string name="price">Цена</string>
+    <string name="name">Наименование</string>
 </resources>

@@ -15,15 +15,15 @@ public class ChargesAdapter extends RecyclerView.Adapter<ChargesAdapter.ChargesV
 
     private List<ChargeModel> dataList = new ArrayList<>();
 
-    public void addNewData( List<ChargeModel> newData){
+    public void addNewData(List<ChargeModel> newData) {
         dataList.clear();
         dataList.addAll(newData);
         notifyDataSetChanged();
     }
 
     public void addDataToTop(ChargeModel data) {
-        dataList.add(data);
-        notify
+        dataList.add(0, data);
+        notifyItemInserted(0);
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class ChargesAdapter extends RecyclerView.Adapter<ChargesAdapter.ChargesV
 
     @Override
     public void onBindViewHolder(@NonNull ChargesViewHolder holder, int position) {
-
+        holder.bind(dataList.get(position));
     }
 
     @Override
@@ -43,15 +43,17 @@ public class ChargesAdapter extends RecyclerView.Adapter<ChargesAdapter.ChargesV
         return dataList.size();
     }
 
-    static class ChargesViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtName = itemView.findViewById(R.id.txtChargeText);
+    static class ChargesViewHolder extends RecyclerView.ViewHolder {
+        private TextView txtName = itemView.findViewById(R.id.txtChargeName);
         private TextView txtValue = itemView.findViewById(R.id.txtChargeValue);
-        public ChargesViewHolder(@NonNull View itemView){
+
+        public ChargesViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        void bind(ChargeModel chargeModel){
-            txtName
+        void bind(ChargeModel chargeModel) {
+            txtName.setText(chargeModel.getName());
+            txtValue.setText(chargeModel.getValue());
         }
     }
 }

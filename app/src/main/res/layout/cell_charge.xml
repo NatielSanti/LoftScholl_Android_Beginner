@@ -12,6 +12,7 @@
             android:paddingTop="29dp"
             android:paddingBottom="29dp">
         <TextView
+                android:id="@+id/txtChargeName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -19,15 +20,22 @@
                 android:textColor="@color/light_primary_text_color"
                 android:textSize="@dimen/primary_text_size"/>
         <TextView
+                android:id="@+id/txtChargeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="96dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/primary_text_size"
+                android:textColor="@color/light_accent_text_color"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"/>
 
     </LinearLayout>
     
     <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_size"/>
+            android:layout_height="@dimen/divider_size"
+            android:layout_gravity="bottom"
+            android:background="@color/dividerColor"/>
 
 </LinearLayout>

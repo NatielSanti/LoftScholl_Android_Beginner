@@ -7,9 +7,41 @@
     tools:context=".screens.second.SecondActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/hello_title" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toPaymentIntro"
+            android:layout_gravity="clip_vertical|center_horizontal"
+            android:layout_marginTop="50dp"/>
+    <EditText
+            android:id="@+id/textSecondName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:hint="@string/name"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp">
+    </EditText>
+
+    <EditText
+            android:id="@+id/textSecondValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:hint="@string/price"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:inputType="number">
+    </EditText>
+
+    <Button
+            android:id="@+id/btnSecondEnter"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/addPayment"
+            android:textSize="@dimen/headerTextSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="200dp"
+            android:background="@color/colorBackgroundColor"
+    />
 
 </FrameLayout>

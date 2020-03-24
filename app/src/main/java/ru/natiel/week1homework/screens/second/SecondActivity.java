@@ -1,8 +1,9 @@
-package ru.natiel.week1homework;
+package ru.natiel.week1homework.screens.second;
 
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import ru.natiel.week1homework.R;
 
 public class SecondActivity extends AppCompatActivity {
 

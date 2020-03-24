@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="playerBackground">#FF0000</color>
     <color name="accentProfile">#FF0000</color>
+    <color name="light_primary_text_color">#666664</color>
 </resources>

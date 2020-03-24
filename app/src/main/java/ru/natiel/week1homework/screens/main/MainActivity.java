@@ -1,9 +1,11 @@
-package ru.natiel.week1homework;
+package ru.natiel.week1homework.screens.main;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import ru.natiel.week1homework.R;
+import ru.natiel.week1homework.screens.second.SecondActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnMainNewPayment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addItemActivity = new Intent(getApplicationContext(), AddItemActivity.class);
+                Intent addItemActivity = new Intent(getApplicationContext(), ChargeListActivity.class);
                 addItemActivity.putExtra("Title", "Go to AddItemActivity");
                 startActivity(addItemActivity);
             }

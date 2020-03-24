@@ -16,4 +16,5 @@
     <string name="addPayment">Add</string>
     <string name="Price">Price</string>
     <string name="Name">Name</string>
+    <string name="title_activity_list">ListActivity</string>
 </resources>

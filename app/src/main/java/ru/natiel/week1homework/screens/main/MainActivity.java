@@ -1,5 +1,6 @@
 package ru.natiel.week1homework.screens.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
                                                                 LinearLayoutManager.VERTICAL,
                                                                 false));
 
+        final Intent secondIntent = SecondActivity.startIntent(this);
         findViewById(R.id.fabMain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondIntent = new Intent(getApplicationContext(), SecondActivity.class);
                 startActivityForResult(secondIntent, ADD_ITEM_REQUEST);
             }
         });

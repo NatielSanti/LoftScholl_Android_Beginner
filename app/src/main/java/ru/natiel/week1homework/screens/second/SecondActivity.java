@@ -1,5 +1,6 @@
 package ru.natiel.week1homework.screens.second;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,7 +34,12 @@ public class SecondActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra(ChargeModel.KEY_NAME, chargeModel);
                 setResult(RESULT_OK, intent);
+                finish();
             }
         });
+    }
+
+    public static Intent startIntent(Context context){
+        return  new Intent(context, SecondActivity.class);
     }
 }

@@ -16,4 +16,8 @@
     <string name="addPayment">Add</string>
     <string name="price">Price</string>
     <string name="name">Name</string>
+    <string name="add_button_title">Add</string>
+    <string name="price_with_currency">%s $</string>
+    <string name="expences">Expences</string>
+    <string name="income">Income</string>
 </resources>

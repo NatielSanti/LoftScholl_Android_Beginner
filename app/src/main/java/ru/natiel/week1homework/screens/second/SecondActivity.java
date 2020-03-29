@@ -1,45 +1,43 @@
 package ru.natiel.week1homework.screens.second;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import ru.natiel.week1homework.R;
-import ru.natiel.week1homework.screens.main.adapter.ChargeModel;
 
 public class SecondActivity extends AppCompatActivity {
 
+    private EditText mNameEditText;
+    private EditText mPriceEditText;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        final EditText textName = findViewById(R.id.textSecondName);
-        final EditText textValue = findViewById(R.id.textSecondValue);
-        Button buttonAdd = findViewById(R.id.btnSecondEnter);
+        mNameEditText = findViewById(R.id.name_edittext);
+        mPriceEditText = findViewById(R.id.price_edittext);
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        Button addButton = findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                String name = textName.getText().toString();
-                String value = textValue.getText().toString();
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(value)) {
-                    return;
+            public void onClick(final View v) {
+                String name = mNameEditText.getText().toString();
+                String price = mPriceEditText.getText().toString();
+
+                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(price)) {
+                    setResult(
+                            RESULT_OK,
+                            new Intent().putExtra("name", name).putExtra("price", price));
+                    finish();
                 }
-                ChargeModel chargeModel = new ChargeModel(name, value + " P");
-                Intent intent = new Intent();
-                intent.putExtra(ChargeModel.KEY_NAME, chargeModel);
-                setResult(RESULT_OK, intent);
-                finish();
             }
         });
-    }
-
-    public static Intent startIntent(Context context){
-        return  new Intent(context, SecondActivity.class);
     }
 }

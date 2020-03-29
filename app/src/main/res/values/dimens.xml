@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="headerTextSize">24dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="divider_size" type="dimen" format="float">1dp</dimen>
-    <dimen name="primary_text_size" type="dimen" format="float">24dp</dimen>
-</resources>

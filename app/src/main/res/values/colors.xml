@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4a90e2</color>
-    <color name="colorPrimaryDark">#4a90e2</color>
-    <color name="colorAccent">#4a90e2</color>
-    <color name="playerBackground">#FF0000</color>
-    <color name="accentProfile">#FF0000</color>
-    <color name="light_primary_text_color">#666664</color>
-    <color name="light_accent_text_color">#4a90e2</color>
-    <color name="colorBackgroundColor">#4a90e2</color>
-    <color name="dividerColor">#666666</color>
+	<color name="colorPrimary">#008577</color>
+	<color name="colorPrimaryDark">#00574B</color>
+	<color name="colorAccent">#D81B60</color>
+	<color name="medium_grey">#666664</color>
+	<color name="dark_sky_blue">#4a90e2</color>
+	<color name="white_six">#efefef</color>
 </resources>

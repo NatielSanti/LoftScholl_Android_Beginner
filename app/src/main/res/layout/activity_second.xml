@@ -1,47 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.second.SecondActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/toPaymentIntro"
-            android:layout_gravity="clip_vertical|center_horizontal"
-            android:layout_marginTop="50dp"/>
-    <EditText
-            android:id="@+id/textSecondName"
+    <LinearLayout
+            android:layout_above="@id/add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:hint="@string/name"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp">
-    </EditText>
+            android:paddingStart="33dp"
+            android:paddingEnd="104dp"
+            android:layout_marginBottom="61dp"
+            android:orientation="vertical">
+        <EditText
+                android:id="@+id/name_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edittext_name_hint"/>
 
-    <EditText
-            android:id="@+id/textSecondValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
-            android:hint="@string/price"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:inputType="number">
-    </EditText>
+        <EditText
+                android:id="@+id/price_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="@string/edittext_price_hint"/>
+    </LinearLayout>
 
     <Button
-            android:id="@+id/btnSecondEnter"
-            android:layout_width="200dp"
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/addPayment"
-            android:textSize="@dimen/headerTextSize"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="200dp"
-            android:background="@color/colorBackgroundColor"
-    />
+            android:text="@string/add_button_title"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@null"/>
 
-</FrameLayout>
+</RelativeLayout>

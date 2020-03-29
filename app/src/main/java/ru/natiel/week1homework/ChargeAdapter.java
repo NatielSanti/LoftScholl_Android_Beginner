@@ -1,11 +1,10 @@
-package ru.natiel.week1homework.screens.main.adapter;
+package ru.natiel.week1homework;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.loftschool.zfadeev.loftmoney.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.natiel.week1homework.screens.main.fragment;
+package ru.natiel.week1homework;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,9 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import ru.natiel.week1homework.screens.main.adapter.ChargeAdapter;
-import ru.natiel.week1homework.screens.main.adapter.ChargeModel;
-import ru.natiel.week1homework.screens.second.SecondActivity;
 
 public class BudgetFragment extends Fragment {
 	

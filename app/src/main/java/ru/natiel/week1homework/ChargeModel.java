@@ -1,4 +1,4 @@
-package ru.natiel.week1homework.screens.main.adapter;
+package ru.natiel.week1homework;
 
 public class ChargeModel {
 	

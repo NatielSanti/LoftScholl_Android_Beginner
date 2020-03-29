@@ -1,4 +1,4 @@
-package ru.natiel.week1homework.screens.main;
+package ru.natiel.week1homework;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
-import ru.natiel.week1homework.screens.main.fragment.BudgetFragment;
+import com.loftschool.zfadeev.loftmoney.R;
 
 public class MainActivity extends AppCompatActivity {
 

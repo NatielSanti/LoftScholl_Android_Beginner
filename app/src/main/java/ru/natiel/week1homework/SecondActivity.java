@@ -1,4 +1,4 @@
-package ru.natiel.week1homework.screens.second;
+package ru.natiel.week1homework;
 
 import android.content.Intent;
 import android.os.Bundle;

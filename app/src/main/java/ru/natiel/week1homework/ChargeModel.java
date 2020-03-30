@@ -1,5 +1,7 @@
 package ru.natiel.week1homework;
 
+import java.util.Objects;
+
 public class ChargeModel {
 	
 	private String name;
@@ -24,5 +26,19 @@ public class ChargeModel {
 	
 	public void setPrice(final int price) {
 		this.price = price;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ChargeModel that = (ChargeModel) o;
+		return price == that.price &&
+				Objects.equals(name, that.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, price);
 	}
 }

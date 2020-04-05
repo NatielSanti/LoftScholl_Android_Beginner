@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import ru.natiel.week1homework.models.ChargeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,12 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ChargeView
 	
 	public void addItem(ChargeModel item) {
 		mItemsList.add(item);
+		notifyDataSetChanged();
+	}
+
+	public void setNewData(List<ChargeModel> chargeModels) {
+		mItemsList.clear();
+		mItemsList.addAll(chargeModels);
 		notifyDataSetChanged();
 	}
 	

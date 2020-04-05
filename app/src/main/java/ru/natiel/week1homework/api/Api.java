@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface Api {
 	@GET("./items")
-	Single<List<ItemRemote>> request(@Query("type") String type, @Query("auth-token") String authToken);
+	public Single<List<ItemRemote>> request(@Query("type") String type, @Query("auth-token") String authToken);
 
 	@POST("./items/add")
 	@FormUrlEncoded
@@ -18,10 +18,10 @@ public interface Api {
 							   @Field("price") Integer price, @Field("auth-token") String authToken);
 
 	@GET("./items/{id}")
-	Completable request(@Path("id") Integer id);
+	public Completable request(@Path("id") Integer id);
 
 
 	@GET("./auth")
-	Single<AuthResponse> request(@Query("social_user_id") String userId);
+	public Single<AuthResponse> request(@Query("social_user_id") String userId);
 
 }

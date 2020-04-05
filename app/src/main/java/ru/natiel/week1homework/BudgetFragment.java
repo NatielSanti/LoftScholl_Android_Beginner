@@ -50,10 +50,6 @@ public class BudgetFragment extends Fragment {
     ) {
         view = inflater.inflate(R.layout.fragment_budget, null);
 
-        SharedPreferences sharedPreferences = view.getContext().
-                getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
-
         Button callAddButton = view.findViewById(R.id.call_add_item_activity);
         callAddButton.setOnClickListener(new View.OnClickListener() {
             @Override

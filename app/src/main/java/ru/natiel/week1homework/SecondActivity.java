@@ -62,7 +62,6 @@ public class SecondActivity extends AppCompatActivity {
         for (Disposable disposable : disposables) {
             disposable.dispose();
         }
-
         super.onDestroy();
     }
 

@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
 import ru.natiel.week1homework.models.AuthResponse;
@@ -31,11 +25,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TOKEN = "token";
-    private static final String USER_ID = "zfadeev";
-
     List<Disposable> disposable = new ArrayList<>();
-
     private WebService webService;
     private Api api;
 
@@ -69,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
                     public void accept(AuthResponse authResponse) throws Exception {
                         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
                         sharedPreferences.edit().putString(AuthResponse.AUTH_TOKEN_KEY, authResponse.getAuthToken()).apply();
-
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

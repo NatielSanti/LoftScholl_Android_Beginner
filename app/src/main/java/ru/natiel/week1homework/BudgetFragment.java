@@ -1,11 +1,9 @@
 package ru.natiel.week1homework;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +17,6 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
 import ru.natiel.week1homework.models.AuthResponse;
@@ -34,7 +29,6 @@ import java.util.List;
 public class BudgetFragment extends Fragment {
 
     private static final int REQUEST_CODE = 100;
-    private static final String TYPE = "fragmentType";
     private View view;
     private ChargeAdapter mAdapter;
     private WebService webService;
@@ -73,6 +67,7 @@ public class BudgetFragment extends Fragment {
         mAdapter = new ChargeAdapter();
         recyclerView.setAdapter(mAdapter);
 
+        loadItems();
         return view;
     }
 
@@ -80,41 +75,6 @@ public class BudgetFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadItems();
-    }
-
-    @Override
-    public void onActivityResult(
-            final int requestCode, final int resultCode, @Nullable final Intent data
-    ) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-//        int price;
-//        try {
-//            price = Integer.parseInt(data.getStringExtra("price"));
-//        } catch (NumberFormatException e) {
-//            price = 0;
-//        }
-//        final int realPrice = price;
-//        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-////			mAdapter.addItem(new ChargeModel(data.getStringExtra("name"), price));
-//            final String name = data.getStringExtra("name");
-//            final String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
-//            Call<Status> call = api.addItem(new AddItemRequest(name, getArguments().getString(TYPE), price), token);
-//            call.enqueue(new Callback<Status>() {
-//                @Override
-//                public void onResponse(
-//                        final Call<Status> call, final Response<Status> response
-//                ) {
-//                    if (response.body().getStatus().equals("success")) {
-//                        mAdapter.addItem(new ChargeModel(name, realPrice));
-//                    }
-//                }
-//                @Override
-//                public void onFailure(final Call<Status> call, final Throwable t) {
-//                    t.printStackTrace();
-//                }
-//            });
-//        }
     }
 
     public void loadItems() {
@@ -133,7 +93,7 @@ public class BudgetFragment extends Fragment {
                     @Override
                     public void onSuccess(List<ItemRemote> itemRemotes) {
                         List<ChargeModel> chargeModels = new ArrayList<>(itemRemotes.size());
-                        for (ItemRemote item: itemRemotes) {
+                        for (ItemRemote item : itemRemotes) {
                             ChargeModel chargeModel = new ChargeModel(item);
                             chargeModels.add(chargeModel);
                         }

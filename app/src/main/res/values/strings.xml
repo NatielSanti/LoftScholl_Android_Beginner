@@ -6,4 +6,5 @@
 	<string name="price_with_currency">%s $</string>
 	<string name="expences">Expences</string>
 	<string name="income">Income</string>
+    <string name="message_success">Success new payment</string>
 </resources>

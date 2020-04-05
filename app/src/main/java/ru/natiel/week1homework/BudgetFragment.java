@@ -56,6 +56,10 @@ public class BudgetFragment extends Fragment {
     ) {
         view = inflater.inflate(R.layout.fragment_budget, null);
 
+        SharedPreferences sharedPreferences = view.getContext().
+                getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+
         Button callAddButton = view.findViewById(R.id.call_add_item_activity);
         callAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +70,16 @@ public class BudgetFragment extends Fragment {
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.budget_item_list);
-
         mAdapter = new ChargeAdapter();
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.addItem(new ChargeModel("Молоко", 70));
-        mAdapter.addItem(new ChargeModel("Зубная щетка", 70));
-        mAdapter.addItem(new ChargeModel("Новый телевизор", 20000));
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadItems();
     }
 
     @Override
@@ -83,33 +88,33 @@ public class BudgetFragment extends Fragment {
     ) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int price;
-        try {
-            price = Integer.parseInt(data.getStringExtra("price"));
-        } catch (NumberFormatException e) {
-            price = 0;
-        }
-        final int realPrice = price;
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//			mAdapter.addItem(new ChargeModel(data.getStringExtra("name"), price));
-            final String name = data.getStringExtra("name");
-            final String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
-            Call<Status> call = api.addItem(new AddItemRequest(name, getArguments().getString(TYPE), price), token);
-            call.enqueue(new Callback<Status>() {
-                @Override
-                public void onResponse(
-                        final Call<Status> call, final Response<Status> response
-                ) {
-                    if (response.body().getStatus().equals("success")) {
-                        mAdapter.addItem(new ChargeModel(name, realPrice));
-                    }
-                }
-                @Override
-                public void onFailure(final Call<Status> call, final Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-        }
+//        int price;
+//        try {
+//            price = Integer.parseInt(data.getStringExtra("price"));
+//        } catch (NumberFormatException e) {
+//            price = 0;
+//        }
+//        final int realPrice = price;
+//        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+////			mAdapter.addItem(new ChargeModel(data.getStringExtra("name"), price));
+//            final String name = data.getStringExtra("name");
+//            final String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+//            Call<Status> call = api.addItem(new AddItemRequest(name, getArguments().getString(TYPE), price), token);
+//            call.enqueue(new Callback<Status>() {
+//                @Override
+//                public void onResponse(
+//                        final Call<Status> call, final Response<Status> response
+//                ) {
+//                    if (response.body().getStatus().equals("success")) {
+//                        mAdapter.addItem(new ChargeModel(name, realPrice));
+//                    }
+//                }
+//                @Override
+//                public void onFailure(final Call<Status> call, final Throwable t) {
+//                    t.printStackTrace();
+//                }
+//            });
+//        }
     }
 
     public void loadItems() {

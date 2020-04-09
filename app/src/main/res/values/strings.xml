@@ -3,7 +3,7 @@
 	<string name="edittext_name_hint">Title</string>
 	<string name="edittext_price_hint">Price</string>
 	<string name="add_button_title">Add</string>
-	<string name="price_with_currency">%s $</string>
+	<string name="price_with_currency">%s</string>
 	<string name="expences">Expences</string>
 	<string name="income">Income</string>
     <string name="message_success">Success new payment</string>

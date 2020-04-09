@@ -109,7 +109,6 @@ public class BudgetFragment extends Fragment {
                             ChargeModel chargeModel = new ChargeModel(item);
                             chargeModels.add(chargeModel);
                         }
-
                         mAdapter.setNewData(chargeModels);
                     }
 

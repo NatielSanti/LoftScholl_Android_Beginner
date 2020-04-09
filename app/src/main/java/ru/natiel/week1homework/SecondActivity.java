@@ -3,7 +3,9 @@ package ru.natiel.week1homework;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import org.jetbrains.annotations.NotNull;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
 import ru.natiel.week1homework.models.AuthResponse;
@@ -29,6 +32,9 @@ public class SecondActivity extends AppCompatActivity {
     private Api api;
     private EditText nameEditText;
     private EditText priceEditText;
+    private Button addButton;
+    private String nameText;
+    private String priceText;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -36,20 +42,19 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         nameEditText = findViewById(R.id.name_edittext);
+        nameEditText.addTextChangedListener(getWatcher(true));
         priceEditText = findViewById(R.id.price_edittext);
+        priceEditText.addTextChangedListener(getWatcher(false));
 
         webService = WebService.getInstance();
         api = webService.getApi();
 
-        Button addButton = findViewById(R.id.add_button);
+        addButton = findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(final View v) {
-                String name = nameEditText.getText().toString();
-                String price = priceEditText.getText().toString();
-
-                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(price)) {
+                if (!TextUtils.isEmpty(nameText) && !TextUtils.isEmpty(priceText)) {
                     sendNewExpense(Integer.valueOf(priceEditText.getText().toString()),
                             nameEditText.getText().toString());
                 }
@@ -92,5 +97,27 @@ public class SecondActivity extends AppCompatActivity {
                 });
 
         disposables.add(request);
+    }
+
+    @NotNull
+    private TextWatcher getWatcher(final boolean isName) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(isName) nameText = s.toString();
+                else priceText = s.toString();
+                checkEditTextHasText();
+            }
+        };
+    }
+
+    public void checkEditTextHasText(){
+        addButton.setEnabled(!TextUtils.isEmpty(nameText) && !TextUtils.isEmpty(priceText));
     }
 }

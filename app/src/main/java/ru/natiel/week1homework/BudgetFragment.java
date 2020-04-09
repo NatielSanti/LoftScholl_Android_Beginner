@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -28,11 +29,23 @@ import java.util.List;
 
 public class BudgetFragment extends Fragment {
 
-    private static final int REQUEST_CODE = 100;
+    public static final int REQUEST_CODE = 100;
+    private static final String COLOR_ID = "colorId";
+    private static final String TYPE = "fragmentType";
     private View view;
     private ChargeAdapter mAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private WebService webService;
     private Api api;
+
+    public static BudgetFragment newInstance(final int colorId, final String type) {
+        BudgetFragment budgetFragment = new BudgetFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(COLOR_ID, colorId);
+        bundle.putString(TYPE, type);
+        budgetFragment.setArguments(bundle);
+        return budgetFragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,16 +63,14 @@ public class BudgetFragment extends Fragment {
     ) {
         view = inflater.inflate(R.layout.fragment_budget, null);
 
-        Button callAddButton = view.findViewById(R.id.call_add_item_activity);
-        callAddButton.setOnClickListener(new View.OnClickListener() {
+        RecyclerView recyclerView = view.findViewById(R.id.budget_item_list);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(final View v) {
-                startActivityForResult(new Intent(getActivity(), SecondActivity.class),
-                        REQUEST_CODE);
+            public void onRefresh() {
+                loadItems();
             }
         });
-
-        RecyclerView recyclerView = view.findViewById(R.id.budget_item_list);
         mAdapter = new ChargeAdapter();
         recyclerView.setAdapter(mAdapter);
 
@@ -77,7 +88,7 @@ public class BudgetFragment extends Fragment {
         SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
 
-        api.request("expense", authToken)
+        api.request(TYPE, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<ItemRemote>>() {
@@ -88,6 +99,7 @@ public class BudgetFragment extends Fragment {
 
                     @Override
                     public void onSuccess(List<ItemRemote> itemRemotes) {
+                        swipeRefreshLayout.setRefreshing(false);
                         List<ChargeModel> chargeModels = new ArrayList<>(itemRemotes.size());
                         for (ItemRemote item : itemRemotes) {
                             ChargeModel chargeModel = new ChargeModel(item);
@@ -99,6 +111,7 @@ public class BudgetFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        swipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(view.getContext().getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

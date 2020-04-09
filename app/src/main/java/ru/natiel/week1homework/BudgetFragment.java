@@ -30,8 +30,10 @@ import java.util.List;
 public class BudgetFragment extends Fragment {
 
     public static final int REQUEST_CODE = 100;
-    private static final String COLOR_ID = "colorId";
-    private static final String TYPE = "fragmentType";
+    private final static String COLOR_ID = "colorId";
+    private final static String TYPE = "fragmentType";
+    private int color;
+    private String type;
     private View view;
     private ChargeAdapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -40,6 +42,8 @@ public class BudgetFragment extends Fragment {
 
     public static BudgetFragment newInstance(final int colorId, final String type) {
         BudgetFragment budgetFragment = new BudgetFragment();
+        budgetFragment.color = colorId;
+        budgetFragment.type = type;
         Bundle bundle = new Bundle();
         bundle.putInt(COLOR_ID, colorId);
         bundle.putString(TYPE, type);
@@ -88,7 +92,7 @@ public class BudgetFragment extends Fragment {
         SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
 
-        api.request(TYPE, authToken)
+        api.request(type, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<ItemRemote>>() {

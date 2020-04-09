@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
+    private String fragmentType;
     private List<Disposable> disposables = new ArrayList<>();
     private WebService webService;
     private Api api;
@@ -40,6 +42,15 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        if(getIntent().getExtras()!= null){
+            int fragmentId = getIntent().getExtras().getInt("fragmentId");
+            if (fragmentId == 0)
+                fragmentType = MainActivity.EXPENSE;
+            else
+                fragmentType = MainActivity.INCOME;
+            Log.e("TAG", "Fragment Id is " + fragmentId);
+        }
 
         nameEditText = findViewById(R.id.name_edittext);
         nameEditText.addTextChangedListener(getWatcher(true));
@@ -77,7 +88,7 @@ public class SecondActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
 
-        Disposable request = api.request("expense", name,
+        Disposable request = api.request(fragmentType, name,
                 price, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())

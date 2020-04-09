@@ -57,9 +57,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.ChargeView
 
         public void bindItem(final ChargeModel item) {
             mNameView.setText(item.getName());
-            mPriceView.setText(
-                    mPriceView.getContext().getResources().getString(R.string.price_with_currency, String.valueOf(item.getPrice()))
-            );
+            mPriceView.setText(String.valueOf(item.getPrice()));
         }
     }
 }

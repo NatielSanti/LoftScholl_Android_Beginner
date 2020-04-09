@@ -1,19 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ЛофтДеньги</string>
-    <string name="hello_title">Здравствуйте</string>
-    <string name="nextTitle">Переход</string>
-    <string name="title_activity_login">Логин</string>
-    <string name="prompt_email">Почта</string>
-    <string name="prompt_password">Пароль</string>
-    <string name="action_sign_in">Войти или зарегистрироваться</string>
-    <string name="action_sign_in_short">Войти</string>
-    <string name="welcome">"Добро пожаловать"</string>
-    <string name="invalid_username">Невалидное имя пользователя</string>
-    <string name="invalid_password">Пароль должен быть длиннее 5 символов</string>
-    <string name="login_failed">"Не удалось войти"</string>
-    <string name="toPayment">Новая запись</string>
-    <string name="toPaymentIntro">Добро пожаловать в новую запись</string>
-    <string name="addPayment">Добавить</string>
-    <string name="Price">Price</string>
+    <string name="edittext_name_hint">Название</string>
+    <string name="edittext_price_hint">Цена</string>
+    <string name="add_button_title">Добавить</string>
+    <string name="price_with_currency">%1$s ₽</string>
+    <string name="expences">Расходы</string>
+    <string name="income">Доходы</string>
 </resources>

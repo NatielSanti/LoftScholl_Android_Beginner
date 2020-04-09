@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#cf25ba</color>
-    <color name="colorPrimaryDark">#9c2d8a</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="playerBackground">#FF0000</color>
-    <color name="accentProfile">#FF0000</color>
+	<color name="colorPrimary">#008577</color>
+	<color name="colorPrimaryDark">#00574B</color>
+	<color name="colorAccent">#D81B60</color>
+	<color name="medium_grey">#666664</color>
+	<color name="dark_sky_blue">#4a90e2</color>
+	<color name="white_six">#efefef</color>
 </resources>

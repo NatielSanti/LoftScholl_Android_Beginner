@@ -1,19 +1,9 @@
 <resources>
-    <string name="app_name">Loftmoney</string>
-    <string name="hello_title">This is first text in my life</string>
-    <string name="nextTitle">Go to next activity</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="toPayment">New Note</string>
-    <string name="toPaymentIntro">Welcome to new payment</string>
-    <string name="addPayment">Add</string>
-    <string name="Price">Price</string>
-    <string name="Name">Name</string>
+	<string name="app_name">LoftMoney</string>
+	<string name="edittext_name_hint">Title</string>
+	<string name="edittext_price_hint">Price</string>
+	<string name="add_button_title">Add</string>
+	<string name="price_with_currency">%s $</string>
+	<string name="expences">Expences</string>
+	<string name="income">Income</string>
 </resources>

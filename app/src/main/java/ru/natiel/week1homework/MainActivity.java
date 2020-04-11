@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXPENSE = "expense";
     public static final String INCOME = "income";
+    public static final String BALANCE = "balance";
     List<Disposable> disposable = new ArrayList<>();
     private TabLayout tabLayout;
     private Toolbar toolbar;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText(R.string.expences);
         tabLayout.getTabAt(1).setText(R.string.income);
+        tabLayout.getTabAt(2).setText(R.string.balance);
 
         webService = WebService.getInstance();
         api = webService.getApi();
@@ -119,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                     return BudgetFragment.newInstance(R.color.dark_sky_blue, EXPENSE);
                 case 1:
                     return BudgetFragment.newInstance(R.color.apple_green, INCOME);
+                case 2:
+                    return BalanceFragment.newInstance(R.color.dark_sky_blue, BALANCE);
                 default:
                     return null;
             }
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

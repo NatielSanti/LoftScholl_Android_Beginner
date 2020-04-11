@@ -12,4 +12,6 @@
 	<string name="remove">remove</string>
 	<string name="confirm">Confirm removing</string>
 	<string name="fail_remove">Removing failed</string>
+    <string name="balance">Balance</string>
+	<string name="balance_available_money">Balance available money</string>
 </resources>

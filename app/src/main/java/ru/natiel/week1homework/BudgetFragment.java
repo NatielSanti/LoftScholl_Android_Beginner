@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.*;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -16,12 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
 import ru.natiel.week1homework.models.AuthResponse;
@@ -145,7 +141,7 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
 
     @Override
     public void onItemLongClick(ChargeModel item, int position) {
-        if(actionMode == null)
+        if (actionMode == null && getActivity() != null)
             getActivity().startActionMode(this);
         adapter.toogleItem(position);
         if (actionMode != null) {
@@ -168,7 +164,7 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (item.getItemId() == R.id.remove){
+        if (item.getItemId() == R.id.remove) {
             new AlertDialog.Builder(getContext())
                     .setMessage(R.string.confirm)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -196,22 +192,27 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
     private void removeItems() {
         List<Integer> selecteditems = adapter.getSelectedItemIdList();
         getToken();
-        for(Integer id: selecteditems){
-            Disposable disposable = api.remove(id, authToken)
+        for (Integer id : selecteditems) {
+            api.remove(id, authToken)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action() {
+                    .subscribe(new SingleObserver<Object>() {
+
                         @Override
-                        public void run() throws Exception {
+                        public void onSubscribe(Disposable d) {
+                        }
+
+                        @Override
+                        public void onSuccess(Object o) {
                             loadItems();
                             adapter.clearSelected();
                         }
-                    }, new Consumer<Throwable>() {
+
                         @Override
-                        public void accept(Throwable throwable) throws Exception {
+                        public void onError(Throwable e) {
+                            Log.d("ERROR", e.getLocalizedMessage());
                         }
                     });
-            disposables.add(disposable);
         }
     }
 

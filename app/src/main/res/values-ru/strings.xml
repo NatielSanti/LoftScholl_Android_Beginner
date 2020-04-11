@@ -12,4 +12,6 @@
     <string name="remove">удалить</string>
     <string name="confirm">Подтвердите удаление</string>
     <string name="fail_remove">Ошибка удаления</string>
+    <string name="balance">Баланс</string>
+    <string name="balance_available_money">Balance available money</string>
 </resources>

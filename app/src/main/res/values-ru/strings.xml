@@ -8,4 +8,8 @@
     <string name="income">Доходы</string>
     <string name="message_success">Добавлено</string>
     <string name="activity_main_toolbar_title">Учет Бюджета</string>
+    <string name="selected">Выделено: %1$s</string>
+    <string name="remove">удалить</string>
+    <string name="confirm">Подтвердите удаление</string>
+    <string name="fail_remove">Ошибка удаления</string>
 </resources>

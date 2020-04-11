@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXPENSE = "expense";
     public static final String INCOME = "income";
     List<Disposable> disposable = new ArrayList<>();
+    private TabLayout tabLayout;
+    private Toolbar toolbar;
     private WebService webService;
     private Api api;
 
@@ -38,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
+        toolbar = findViewById(R.id.toolBar);
 
         final ViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new BudgetPagerAdapter(getSupportFragmentManager(),
@@ -63,6 +69,20 @@ public class MainActivity extends AppCompatActivity {
         api = webService.getApi();
 
         performSignIn();
+    }
+
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        super.onActionModeStarted(mode);
+        tabLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray_blue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray_blue));
+    }
+
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+        super.onActionModeFinished(mode);
+        tabLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     private void performSignIn() {

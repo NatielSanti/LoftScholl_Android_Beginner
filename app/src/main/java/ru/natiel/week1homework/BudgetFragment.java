@@ -1,13 +1,12 @@
 package ru.natiel.week1homework;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.text.TextUtils;
+import android.view.*;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
 import ru.natiel.week1homework.models.AuthResponse;
@@ -27,18 +31,21 @@ import ru.natiel.week1homework.models.ItemRemote;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BudgetFragment extends Fragment {
+public class BudgetFragment extends Fragment implements ChargeModelAdapterListener, ActionMode.Callback {
 
     public static final int REQUEST_CODE = 100;
     private final static String COLOR_ID = "colorId";
     private final static String TYPE = "fragmentType";
+    private List<Disposable> disposables = new ArrayList<>();
     private int color;
     private String type;
     private View view;
-    private ChargeAdapter mAdapter;
+    private ChargeAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ActionMode actionMode;
     private WebService webService;
     private Api api;
+    private String authToken;
 
     public static BudgetFragment newInstance(final int colorId, final String type) {
         BudgetFragment budgetFragment = new BudgetFragment();
@@ -75,8 +82,9 @@ public class BudgetFragment extends Fragment {
                 loadItems();
             }
         });
-        mAdapter = new ChargeAdapter();
-        recyclerView.setAdapter(mAdapter);
+        adapter = new ChargeAdapter();
+        adapter.setListener(this);
+        recyclerView.setAdapter(adapter);
 
         loadItems();
         return view;
@@ -88,10 +96,16 @@ public class BudgetFragment extends Fragment {
         loadItems();
     }
 
-    public void loadItems() {
-        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+    @Override
+    public void onDestroy() {
+        for (Disposable disposable : disposables) {
+            disposable.dispose();
+        }
+        super.onDestroy();
+    }
 
+    public void loadItems() {
+        getToken();
         api.request(type, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -109,7 +123,7 @@ public class BudgetFragment extends Fragment {
                             ChargeModel chargeModel = new ChargeModel(item);
                             chargeModels.add(chargeModel);
                         }
-                        mAdapter.setNewData(chargeModels);
+                        adapter.setNewData(chargeModels);
                     }
 
                     @Override
@@ -121,4 +135,90 @@ public class BudgetFragment extends Fragment {
 
     }
 
+    @Override
+    public void onItemClick(ChargeModel item, int position) {
+        adapter.clearItems(position);
+        if (actionMode != null) {
+            actionMode.setTitle(getString(R.string.selected, String.valueOf(adapter.getSelectedSize())));
+        }
+    }
+
+    @Override
+    public void onItemLongClick(ChargeModel item, int position) {
+        if(actionMode == null)
+            getActivity().startActionMode(this);
+        adapter.toogleItem(position);
+        if (actionMode != null) {
+            actionMode.setTitle(getString(R.string.selected, String.valueOf(adapter.getSelectedSize())));
+        }
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        this.actionMode = mode;
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        MenuInflater menuInflater = new MenuInflater(getActivity());
+        menuInflater.inflate(R.menu.menu_delete, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        if (item.getItemId() == R.id.remove){
+            new AlertDialog.Builder(getContext())
+                    .setMessage(R.string.confirm)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            removeItems();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getActivity(), getString(R.string.fail_remove), Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
+        }
+        return true;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+        this.actionMode = null;
+        adapter.clearSelected();
+    }
+
+    private void removeItems() {
+        List<Integer> selecteditems = adapter.getSelectedItemIdList();
+        getToken();
+        for(Integer id: selecteditems){
+            Disposable disposable = api.remove(id, authToken)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            loadItems();
+                            adapter.clearSelected();
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                        }
+                    });
+            disposables.add(disposable);
+        }
+    }
+
+    private void getToken() {
+        if (TextUtils.isEmpty(authToken)) {
+            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+            authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+        }
+    }
 }

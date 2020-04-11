@@ -8,4 +8,8 @@
 	<string name="income">Income</string>
     <string name="message_success">Success new payment</string>
     <string name="activity_main_toolbar_title">Budget Accounting</string>
+    <string name="selected">Selected: %1$s</string>
+	<string name="remove">remove</string>
+	<string name="confirm">Confirm removing</string>
+	<string name="fail_remove">Removing failed</string>
 </resources>

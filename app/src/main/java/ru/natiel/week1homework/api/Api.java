@@ -17,9 +17,8 @@ public interface Api {
 	public Completable request(@Field("type") String type, @Field("name") String name,
 							   @Field("price") Integer price, @Field("auth-token") String authToken);
 
-	@GET("./items/{id}")
-	public Completable request(@Path("id") Integer id);
-
+	@DELETE("./items/{id}")
+	public Completable remove(@Path("id") Integer id, @Query("auth-token") String authToken);
 
 	@GET("./auth")
 	public Single<AuthResponse> request(@Query("social_user_id") String userId);

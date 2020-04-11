@@ -12,18 +12,15 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 public class ChargeModel {
-	
+
+	private int id;
 	private String name;
 	private String price;
 
 	public ChargeModel(ItemRemote itemRemote) {
+		this.id = id;
 		this.name = itemRemote.getName();
 		this.price = itemRemote.getPrice() + " Р";
-	}
-
-	public ChargeModel(String name, int price) {
-		this.name = name;
-		this.price = price + " Р";
 	}
 
 	@Override

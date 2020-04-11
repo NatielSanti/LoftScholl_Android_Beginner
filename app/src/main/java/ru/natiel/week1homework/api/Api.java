@@ -10,17 +10,17 @@ import java.util.List;
 
 public interface Api {
 	@GET("./items")
-	public Single<List<ItemRemote>> request(@Query("type") String type, @Query("auth-token") String authToken);
+	Single<List<ItemRemote>> request(@Query("type") String type, @Query("auth-token") String authToken);
 
 	@POST("./items/add")
 	@FormUrlEncoded
-	public Completable request(@Field("type") String type, @Field("name") String name,
+	Completable request(@Field("type") String type, @Field("name") String name,
 							   @Field("price") Integer price, @Field("auth-token") String authToken);
 
 	@DELETE("./items/{id}")
-	public Completable remove(@Path("id") Integer id, @Query("auth-token") String authToken);
+	Completable remove(@Path("id") Integer id, @Query("auth-token") String authToken);
 
 	@GET("./auth")
-	public Single<AuthResponse> request(@Query("social_user_id") String userId);
+	Single<AuthResponse> request(@Query("social_user_id") String userId);
 
 }

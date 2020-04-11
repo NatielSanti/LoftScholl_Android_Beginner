@@ -197,21 +197,23 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         List<Integer> selecteditems = adapter.getSelectedItemIdList();
         getToken();
         for(Integer id: selecteditems){
-            Disposable disposable = api.remove(id, authToken)
+            api.remove(id, authToken)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action() {
+                    .subscribe( new SingleObserver<Object>() {
+
                         @Override
-                        public void run() throws Exception {
+                        public void onSubscribe(Disposable d) {}
+
+                        @Override
+                        public void onSuccess(Object o) {
                             loadItems();
                             adapter.clearSelected();
                         }
-                    }, new Consumer<Throwable>() {
+
                         @Override
-                        public void accept(Throwable throwable) throws Exception {
-                        }
+                        public void onError(Throwable e) {}
                     });
-            disposables.add(disposable);
         }
     }
 

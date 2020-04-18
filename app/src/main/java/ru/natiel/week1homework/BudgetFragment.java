@@ -3,6 +3,7 @@ package ru.natiel.week1homework;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -27,7 +29,7 @@ import ru.natiel.week1homework.models.ItemRemote;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BudgetFragment extends Fragment implements ChargeModelAdapterListener, ActionMode.Callback {
+public class BudgetFragment extends Fragment implements ChargeModelAdapterListener, ActionMode.Callback, FragmentInterface {
 
     public static final int REQUEST_CODE = 100;
     private final static String COLOR_ID = "colorId";
@@ -82,6 +84,18 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         adapter.setListener(this);
         recyclerView.setAdapter(adapter);
 
+        final FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int activeFragmentIndex = MainActivity.viewPager.getCurrentItem();
+                Fragment activeFragment = getActivity().getSupportFragmentManager().getFragments().get(activeFragmentIndex);
+                Intent intent = new Intent(getActivity(), SecondActivity.class);
+                intent.putExtra("fragmentId", activeFragmentIndex);
+                activeFragment.startActivityForResult(intent, BudgetFragment.REQUEST_CODE);
+            }
+        });
+
         loadItems();
         return view;
     }
@@ -100,6 +114,7 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         super.onDestroy();
     }
 
+    @Override
     public void loadItems() {
         getToken();
         api.request(type, authToken)
@@ -216,7 +231,8 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         }
     }
 
-    private void getToken() {
+    @Override
+    public void getToken() {
         if (TextUtils.isEmpty(authToken)) {
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
             authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");

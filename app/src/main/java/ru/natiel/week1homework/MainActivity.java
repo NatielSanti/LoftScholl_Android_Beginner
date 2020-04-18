@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String INCOME = "income";
     public static final String BALANCE = "balance";
     List<Disposable> disposable = new ArrayList<>();
+    public static ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private WebService webService;
@@ -47,21 +48,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         toolbar = findViewById(R.id.toolBar);
 
-        final ViewPager viewPager = findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new BudgetPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final int activeFragmentIndex = viewPager.getCurrentItem();
-                Fragment activeFragment = getSupportFragmentManager().getFragments().get(activeFragmentIndex);
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra("fragmentId", activeFragmentIndex);
-                activeFragment.startActivityForResult(intent, BudgetFragment.REQUEST_CODE);
-            }
-        });
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText(R.string.expences);
         tabLayout.getTabAt(1).setText(R.string.income);

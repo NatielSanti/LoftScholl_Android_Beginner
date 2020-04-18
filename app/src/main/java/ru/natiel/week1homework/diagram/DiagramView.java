@@ -13,7 +13,6 @@ public class DiagramView extends View {
 
     private float expenses = 100;
     private float incomes = 200;
-
     private Paint expensePaint = new Paint();
     private Paint incomePaint = new Paint();
 

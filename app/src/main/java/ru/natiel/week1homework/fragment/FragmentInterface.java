@@ -1,4 +1,4 @@
-package ru.natiel.week1homework;
+package ru.natiel.week1homework.fragment;
 
 public interface FragmentInterface {
     void loadItems();

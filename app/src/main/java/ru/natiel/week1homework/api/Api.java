@@ -3,8 +3,8 @@ package ru.natiel.week1homework.api;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import retrofit2.http.*;
-import ru.natiel.week1homework.models.AuthResponse;
-import ru.natiel.week1homework.models.ItemRemote;
+import ru.natiel.week1homework.model.AuthResponse;
+import ru.natiel.week1homework.model.ItemRemote;
 
 import java.util.List;
 

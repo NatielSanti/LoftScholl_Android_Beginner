@@ -1,4 +1,4 @@
-package ru.natiel.week1homework.models;
+package ru.natiel.week1homework.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

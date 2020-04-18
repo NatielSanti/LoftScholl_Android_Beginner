@@ -1,6 +1,6 @@
-package ru.natiel.week1homework;
+package ru.natiel.week1homework.screen.adapter;
 
-import ru.natiel.week1homework.models.ChargeModel;
+import ru.natiel.week1homework.model.ChargeModel;
 
 public interface ChargeModelAdapterListener {
     public void onItemClick(ChargeModel item, int position);

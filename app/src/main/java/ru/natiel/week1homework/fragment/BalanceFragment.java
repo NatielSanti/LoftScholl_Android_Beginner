@@ -1,4 +1,4 @@
-package ru.natiel.week1homework;
+package ru.natiel.week1homework.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,14 +17,14 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import ru.natiel.week1homework.screen.MainActivity;
+import ru.natiel.week1homework.R;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
 import ru.natiel.week1homework.diagram.DiagramView;
-import ru.natiel.week1homework.models.AuthResponse;
-import ru.natiel.week1homework.models.ChargeModel;
-import ru.natiel.week1homework.models.ItemRemote;
+import ru.natiel.week1homework.model.AuthResponse;
+import ru.natiel.week1homework.model.ItemRemote;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;

@@ -61,13 +61,6 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         return budgetFragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        webService = WebService.getInstance();
-        api = webService.getApi();
-    }
-
     @Nullable
     @Override
     public View onCreateView(
@@ -75,7 +68,14 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
             @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState
     ) {
-        view = inflater.inflate(R.layout.fragment_budget, null);
+        return inflater.inflate(R.layout.fragment_budget, null);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        webService = WebService.getInstance();
+        api = webService.getApi();
 
         RecyclerView recyclerView = view.findViewById(R.id.budget_item_list);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
@@ -102,7 +102,6 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         });
 
         loadItems();
-        return view;
     }
 
     @Override

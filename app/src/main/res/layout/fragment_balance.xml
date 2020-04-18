@@ -120,7 +120,7 @@
 
 	<ru.natiel.week1homework.diagram.DiagramView
 			android:id="@+id/dvBalance"
-			android:layout_width="176dp"
+			android:layout_width="196dp"
 			android:layout_height="176dp"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"

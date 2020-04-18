@@ -58,14 +58,15 @@ public class BalanceFragment extends Fragment implements FragmentInterface{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_balance, null);
+        view = inflater.inflate(R.layout.fragment_balance, null);
+        webService = WebService.getInstance();
+        api = webService.getApi();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        webService = WebService.getInstance();
-        api = webService.getApi();
         expencesText = view.findViewById(R.id.txtBalanceExpense);
         incomeText = view.findViewById(R.id.txtBalanceIncome);
         diagramView = view.findViewById(R.id.dvBalance);

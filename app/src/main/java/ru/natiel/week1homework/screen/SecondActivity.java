@@ -1,4 +1,4 @@
-package ru.natiel.week1homework;
+package ru.natiel.week1homework.screen;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,9 +19,10 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import org.jetbrains.annotations.NotNull;
+import ru.natiel.week1homework.R;
 import ru.natiel.week1homework.api.Api;
 import ru.natiel.week1homework.api.WebService;
-import ru.natiel.week1homework.models.AuthResponse;
+import ru.natiel.week1homework.model.AuthResponse;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".screen.MainActivity">
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/balanceAvailableTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintBottom_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="37dp"
+			android:textColor="@color/medium_grey"
+			android:fontFamily="sans-serif-light"
+			android:text="@string/balance_available_money"
+	/>
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/balanceAvailable"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintBottom_toTopOf="@+id/balanceAvailableTitle"
+			app:layout_constraintStart_toStartOf="@+id/balanceAvailableTitle"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="1dp"
+			android:textSize="48sp"
+			android:textColor="@color/pale_orange"
+			android:text="123123"
+	/>
+
+	<View
+			android:id="@+id/balanceDivider1"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/white_six"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/balanceAvailable"
+			android:layout_marginTop="37dp"
+	/>
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/txtBalanceExpenseTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/expences"
+			app:layout_constraintStart_toStartOf="@+id/balanceAvailableTitle"
+			app:layout_constraintTop_toBottomOf="@+id/balanceDivider1"
+			android:layout_marginTop="26dp"
+			android:textSize="10sp"
+			android:textColor="@color/medium_grey"
+			android:fontFamily="sans-serif-light"
+	/>
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/txtBalanceExpense"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="@+id/balanceAvailableTitle"
+			app:layout_constraintTop_toBottomOf="@+id/txtBalanceExpenseTitle"
+			android:text="54000 Р"
+			android:layout_marginTop="5dp"
+			android:textSize="24sp"
+			android:fontFamily="sans-serif-medium"
+			android:textColor="@color/dark_sky_blue"
+	/>
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/txtBalanceIncomeTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/income"
+			app:layout_constraintStart_toEndOf="@+id/balanceDivider2"
+			app:layout_constraintTop_toBottomOf="@+id/balanceDivider1"
+			android:layout_marginTop="26dp"
+			android:layout_marginStart="18dp"
+			android:textSize="10sp"
+			android:textColor="@color/medium_grey"
+			android:fontFamily="sans-serif-light"
+	/>
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/txtBalanceIncome"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="@+id/txtBalanceIncomeTitle"
+			app:layout_constraintTop_toBottomOf="@+id/txtBalanceExpenseTitle"
+			android:text="74000 Р"
+			android:layout_marginTop="5dp"
+			android:textSize="24sp"
+			android:fontFamily="sans-serif-medium"
+			android:textColor="@color/apple_green"
+	/>
+
+	<View
+			android:id="@+id/balanceDivider2"
+			android:layout_width="1dp"
+			android:layout_height="0dp"
+			app:layout_constraintTop_toBottomOf="@+id/balanceDivider1"
+			app:layout_constraintBottom_toTopOf="@+id/balanceDivider3"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:background="@color/white_six"
+	/>
+
+	<View
+			android:id="@+id/balanceDivider3"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/white_six"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/txtBalanceExpense"
+			android:layout_marginTop="26dp"
+	/>
+
+	<ru.natiel.week1homework.diagram.DiagramView
+			android:id="@+id/dvBalance"
+			android:layout_width="196dp"
+			android:layout_height="176dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/balanceDivider3"
+			android:layout_marginTop="36dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

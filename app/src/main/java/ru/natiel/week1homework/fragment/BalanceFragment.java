@@ -70,11 +70,13 @@ public class BalanceFragment extends Fragment implements FragmentInterface{
         expencesText = view.findViewById(R.id.txtBalanceExpense);
         incomeText = view.findViewById(R.id.txtBalanceIncome);
         diagramView = view.findViewById(R.id.dvBalance);
-        if(isCachedTotalEmpty())
-            loadItems();
-        expencesText.setText(String.format("%s P", expencesAll));
-        incomeText.setText(String.format("%s P", incomesAll));
-        diagramView.update(expencesAll, incomesAll);
+        loadItems();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadItems();
     }
 
     private boolean isCachedTotalEmpty() {
@@ -91,10 +93,15 @@ public class BalanceFragment extends Fragment implements FragmentInterface{
 
     @Override
     public void loadItems(){
-        getToken();
-        getRequest(MainActivity.EXPENSE, true);
-        getRequest(MainActivity.INCOME, false);
-        Log.d(TAG, "loadItems: " + expencesAll + " " + incomesAll );
+        if(isCachedTotalEmpty()){
+            getToken();
+            getRequest(MainActivity.EXPENSE, true);
+            getRequest(MainActivity.INCOME, false);
+            Log.d(TAG, "loadItems: " + expencesAll + " " + incomesAll );
+        }
+        expencesText.setText(String.format("%s P", expencesAll));
+        incomeText.setText(String.format("%s P", incomesAll));
+        diagramView.update(expencesAll, incomesAll);
     }
 
     private void getRequest(String type, final boolean isExpences) {

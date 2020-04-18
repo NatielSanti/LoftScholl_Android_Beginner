@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXPENSE = "expense";
     public static final String INCOME = "income";
+    public static final String EXPENSE_TOTAL = "expenseTotal";
+    public static final String INCOME_TOTAL = "incomeTotal";
     public static final String BALANCE = "balance";
     List<Disposable> disposable = new ArrayList<>();
     public static ViewPager viewPager;

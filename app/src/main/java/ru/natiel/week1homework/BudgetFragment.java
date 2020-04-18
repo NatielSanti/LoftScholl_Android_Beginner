@@ -122,18 +122,21 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<ItemRemote>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        // Stub
-                    }
+                    public void onSubscribe(Disposable d) {}
 
                     @Override
                     public void onSuccess(List<ItemRemote> itemRemotes) {
                         swipeRefreshLayout.setRefreshing(false);
                         List<ChargeModel> chargeModels = new ArrayList<>(itemRemotes.size());
+                        int total = 0;
                         for (ItemRemote item : itemRemotes) {
                             ChargeModel chargeModel = new ChargeModel(item);
                             chargeModels.add(chargeModel);
+                            total += item.getPrice();
                         }
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                                getString(R.string.app_name), Context.MODE_PRIVATE);
+                        sharedPreferences.edit().putInt(type, total).apply();
                         adapter.setNewData(chargeModels);
                     }
 
@@ -209,25 +212,24 @@ public class BudgetFragment extends Fragment implements ChargeModelAdapterListen
         getToken();
         for (Integer id : selecteditems) {
             api.remove(id, authToken)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new SingleObserver<Object>() {
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Object>() {
 
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                        }
+                    @Override
+                    public void onSubscribe(Disposable d) {}
 
-                        @Override
-                        public void onSuccess(Object o) {
-                            loadItems();
-                            adapter.clearSelected();
-                        }
+                    @Override
+                    public void onSuccess(Object o) {
+                        loadItems();
+                        adapter.clearSelected();
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.d("ERROR", e.getLocalizedMessage());
-                        }
-                    });
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("ERROR", e.getLocalizedMessage());
+                    }
+                });
         }
     }
 

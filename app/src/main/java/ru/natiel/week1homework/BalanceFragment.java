@@ -70,9 +70,23 @@ public class BalanceFragment extends Fragment implements FragmentInterface{
         expencesText = view.findViewById(R.id.txtBalanceExpense);
         incomeText = view.findViewById(R.id.txtBalanceIncome);
         diagramView = view.findViewById(R.id.dvBalance);
-        loadItems();
+        if(isCachedTotalEmpty())
+            loadItems();
         expencesText.setText(String.format("%s P", expencesAll));
         incomeText.setText(String.format("%s P", incomesAll));
+        diagramView.update(expencesAll, incomesAll);
+    }
+
+    private boolean isCachedTotalEmpty() {
+        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        int expencesCached = sharedPreferences.getInt(MainActivity.EXPENSE, -1);
+        int incomeCached = sharedPreferences.getInt(MainActivity.INCOME, -1);
+        if (expencesCached != -1 && incomeCached != -1){
+            expencesAll = expencesCached;
+            incomesAll = incomeCached;
+            return false;
+        } else
+            return true;
     }
 
     @Override
@@ -81,7 +95,6 @@ public class BalanceFragment extends Fragment implements FragmentInterface{
         getRequest(MainActivity.EXPENSE, true);
         getRequest(MainActivity.INCOME, false);
         Log.d(TAG, "loadItems: " + expencesAll + " " + incomesAll );
-        diagramView.update(expencesAll, incomesAll);
     }
 
     private void getRequest(String type, final boolean isExpences) {
